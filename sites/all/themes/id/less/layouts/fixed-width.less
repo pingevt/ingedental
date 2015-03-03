@@ -1,0 +1,575 @@
+/**
+ * @file
+ * Positioning for a fixed-width, desktop-centric layout.
+ *
+ * Define CSS classes to create a table-free, 3-column, 2-column, or single
+ * column layout depending on whether blocks are enabled in the left or right
+ * columns.
+ *
+ * This layout uses the Zen Grids plugin for Compass: http://zengrids.com
+ */
+
+/**
+ * LESS Colors
+ */
+
+@main-red:                  #5f3b42;
+@main-blue:                 #5b747d;
+@body-copy-color:           #7c7151;
+@footer-color:              #73694b;
+
+@main-content-bg-color:     #F9F7F5;
+
+@block-quote-border-color:  #dcd6ce;
+
+@img_dir: "../../images/";
+
+.box-shadow (@x: 0, @y: 0, @blur: 1px, @spread: 2px, @color: #000) {
+  box-shadow: @arguments;
+  -moz-box-shadow: @arguments;
+  -webkit-box-shadow: @arguments;
+}
+
+.box-shadow-inner (@x: 0, @y: 0, @blur: 1px, @spread: 2px, @color: #000) {
+  box-shadow: inset @arguments;
+  -moz-box-shadow: inset @arguments;
+  -webkit-box-shadow: inset @arguments;
+}
+
+.rounded-corners(@radius: 5px) {
+  -moz-border-radius: @radius;
+  border-radius: @radius;
+}
+
+body {
+	background: url('@{img_dir}bg.gif') top center;
+	padding-bottom: 50px;
+	font-size: 80%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-top: 0;
+	color: @main-blue;
+}
+
+#bg-overlay {
+	position: absolute;
+	top:0;
+	left: 0;
+	background: url('@{img_dir}bg_overlay2.png') repeat-x top center;
+	width: 100%;
+	height: 500px;
+
+	z-index: -1
+}
+
+/*
+ * Center the page.
+ */
+
+#mainCol,
+.region-bottom {
+  /* If you want to make the page a fixed width and centered in the viewport,
+   * this is the standards-compliant way to do that. */
+  margin-left: auto;
+  margin-right: auto;
+  width: 900px;
+	position: relative;
+	padding: 0 0px 0 0px;
+
+	background: url('@{img_dir}navColBG.jpg') repeat-y top left;
+
+	.box-shadow(0, 0, 5px, 5px, rgba(0, 0, 0, .5));
+
+	border-bottom-left-radius: 25px;
+	-moz-border-radius-bottomleft: 25px;
+}
+
+
+/*
+ * Apply the shared properties of grid items in a single, efficient ruleset.
+ */
+
+#header,
+#content,
+#navigation,
+.region-sidebar-first,
+.region-sidebar-second,
+#footer {
+
+}
+
+/*
+ * Containers for grid items and flow items.
+ */
+
+#header,
+#main,
+#footer {
+  *position: relative;
+  *zoom: 1;
+}
+#header:before, #header:after,
+#main:before, #main:after,
+#footer:before, #footer:after {
+  content: "";
+  display: table;
+}
+#header:after,
+#main:after,
+#footer:after {
+  clear: both;
+}
+
+
+
+
+
+
+
+#headerBanner {
+	position: absolute;
+	z-index: 109;
+	top: 0;
+	left: 0px;
+	width: 900px;
+	height: 212px;
+	background: url('@{img_dir}header.png') no-repeat top left;
+}
+
+#linkBack {
+	position: absolute;
+	top: 0;
+	left: 10px;
+	z-index: 1001;
+	width: 182px;
+	height: 127px;
+	cursor: pointer;
+
+	background: transparent;
+}
+
+#linkBack2 {
+	position: absolute;
+	top: 127px;
+	left: 10px;
+	z-index: 1001;
+	width: 92px;
+	height: 42px;
+	cursor: pointer;
+
+	background: transparent;
+}
+
+#linkBack a {
+	width: 100%;
+	height: 100%;
+}
+
+#swoosh {
+	position: absolute;
+	z-index: 110;
+	top: 64px;
+	left: -26px;
+	width: 962px;
+	height: 161px;
+	background: url('@{img_dir}swoosh.png') no-repeat top left;
+}
+
+
+/*
+ * Navigation bar
+ */
+
+
+#navCol {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 200px;
+	padding: 0;
+
+	z-index: 12;
+}
+
+#nav {
+	background: url('@{img_dir}navBG.jpg') repeat-y top left;
+	padding: 225px 12px 0 12px;
+	position: relative;
+  z-index: 115;
+}
+
+#navBottom {
+	position: relative;
+	bottom: 0;
+	left: -12px;
+	width: 200px;
+	height: 30px;
+	background: url('@{img_dir}navBottom.jpg') no-repeat bottom left;
+}
+
+#navCol {
+  .block {
+    background-color: rgba(256, 256, 256, .3);
+    .rounded-corners(10px);
+
+    padding: 4px;
+  }
+}
+
+#navCol ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0 0 15px 0;
+}
+
+#navCol ul li {
+	font-size: 12pt;
+
+	font-weight: bold;
+
+	text-decoration: none;
+	color: @main-red;
+	text-align: right;
+	font-variant: small-caps;
+	font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+#navCol ul li a {
+	text-decoration: none;
+	color: @main-red;
+}
+
+#navCol ul li a:hover {
+	color: @main-blue;
+}
+
+
+
+/* ========== ========== ==========
+/* MAIN CONTENT COLUMN
+/* ========== ========== ========*/
+
+#mainContentCol {
+	background: transparent;
+	width: 700px;
+	color: @body-copy-color;
+	padding-left: 200px;
+
+	position: relative;
+	z-index: 10;
+
+	line-height: 17px;
+}
+
+#mainContentCol h1 {
+	font-variant: small-caps;
+}
+
+#mainContentCol h2 {
+	padding: 0 0 0 1em;
+}
+
+#mainContentCol h3 {
+	padding: 0 0 0 1.5em;
+}
+
+#mainContentCol h4 {
+	padding: 0 0 0 2em;
+}
+
+#mainContentCol h5 {
+	padding: 0 0 0 2.5em;
+}
+
+#mainContentCol h6 {
+	padding: 0 0 0 3em;
+}
+
+#mainContentCol p {
+	padding: 0 3.5em 0 3.5em;
+}
+
+#mainContentCol ul,
+#mainContentCol ol {
+	padding: 0 0 0 55px;
+}
+
+#mainContentCol a {
+	color: @main-red;
+	text-decoration: none;
+}
+
+#mainContentCol a:hover {
+	text-decoration: underline;
+}
+
+#FProtate {
+	position: relative;
+	width: 650px;
+	height: 350px;
+}
+
+#FProtate #clickable {
+	position: absolute;
+	top: 105px;
+	height: 245px;
+	width: 650px;
+	z-index: 120;
+	cursor: pointer;
+
+	background: transparent;
+}
+
+#mainContentCol .rotateImg {
+	position: absolute;
+	height: 350px;
+	width: 650px;
+}
+
+#click_overlay {
+	height: 100%;
+	background: #eeeeee;
+}
+
+#mainPeeps {
+	background: url('@{img_dir}peeps.gif') no-repeat bottom left;
+	height: 212px
+}
+
+#contentWrapper {
+	position: relative;
+	background: @main-content-bg-color url('@{img_dir}contentBG.png') no-repeat bottom right;
+	min-height: 395px;
+	.box-shadow-inner(5px, 5px, 5px, 0px, rgba(0, 0, 0, 0.3));
+}
+
+#contentWrapper #content {
+	padding: 15px 15px 60px 15px;
+}
+
+#topShadow {
+	width: 650px;
+	height: 7px;
+	background: url('@{img_dir}upperContentShadow.gif') no-repeat top left;
+	position: absolute;
+	top: 0;
+	left: 0
+}
+
+#mainContentCol #footer {
+	/*position: absolute;
+	bottom: 2px;
+	left: 0;*/
+
+	width: 700px;
+	text-align: center;
+
+	font-size: .8em;
+	color: @footer-color;
+}
+
+#mainContentCol #footer a {
+	color: @footer-color;
+}
+
+#mainContentCol blockquote {
+	background: url("@{img_dir}quote.gif") no-repeat scroll 0 10px transparent;
+    border-bottom: 3px double @block-quote-border-color;
+    border-top: 3px double @block-quote-border-color;
+    font-style: italic;
+    position: relative;
+    padding-bottom: 2em;
+    clear:	both;
+}
+
+#mainContentCol blockquote cite {
+	margin: 20px 0;
+	font-weight: bold;
+
+	position: absolute;
+	right: 0;
+	bottom: 0;
+}
+
+.images img {
+	margin: 20px;
+}
+
+.images img.first {
+	margin-left: 85px;
+}
+
+.images img.last {
+	margin-right: 0;
+}
+
+
+ul#fv-links {
+	padding: 0 0 0 55px;
+	list-style-type: none;
+}
+
+ul#fv-links li {
+
+}
+
+ul#fv-links li a {
+	font-size: 110%;
+}
+
+ul#fv-links li p.desc {
+	padding: 0 0 0 5px;
+	margin: 0;
+	color: #666666;
+	font-size: 90%;
+}
+
+#googlemap {
+	width: 425px;
+	margin: 0 auto;
+}
+
+
+/* ========== ========== ==========
+/* GALLERY
+/* ========== ========== ========*/
+
+.before {
+	clear: both;
+	float: left;
+	width: 49%;
+}
+
+.after {
+	float: left;
+	width: 310px;
+}
+
+.after h2,
+.before h2 {
+	text-align: center;
+	color: @main-red;
+	padding: 0;
+}
+
+.after img,
+.before img {
+	margin: 20px 29px;
+	width:252px;
+}
+
+.member {
+	margin-bottom: 30px;
+}
+
+.member p {
+	margin: 5px 0;
+}
+
+.member h3 {
+	margin-bottom: 5px;
+}
+
+/* ========== ========== ==========
+/* Angie's List Block
+/* ========== ========== ========*/
+#angieslist {
+  width: 168px;
+  margin-top: 7px;
+}
+
+#angieslist a {
+  display: block;
+  width: 120px;
+  margin: 0 auto;
+  text-align: center;
+  color: @main-blue;
+
+  font-size: 12px;
+  line-height: 15px;
+}
+
+#angieslist a img {
+  width: 120px;
+}
+
+
+/* ========== ========== ==========
+/*  Block
+/* ========== ========== ========*/
+#ndr {
+  width: 168px;
+  margin-top: 7px;
+}
+
+#ndr p {
+  margin: 0;
+  padding: 0px;
+}
+
+#ndr a {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  color: @main-blue;
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 15px;
+}
+
+#ndr a img {
+  width: 160px;
+}
+
+
+
+/* ========== ========== ==========
+/* UTILITIES
+/* ========== ========== ========*/
+
+
+.clear {
+	clear: both;
+	height: 0px;
+}
+
+
+
+
+div.hr {
+  display: block;
+  width: 80%;
+  height: 2px;
+  margin: 0 auto 10px;
+
+  background-color: #5F3B42;
+
+}
+
+.bold {
+  font-weight: bold;
+}
+
+
+
+
+
+
+.region-bottom-content .block.first {
+  margin-top: 60px;
+  text-align: center;
+  font-size: .9em;
+  line-height: 17px;
+  color: @footer-color;
+}
+
+
+
+a.file {
+  padding-left: 20px;
+}
+
+a.pdf {
+  background: url('@{img_dir}mime/16/pdf.png') center left no-repeat;
+}
