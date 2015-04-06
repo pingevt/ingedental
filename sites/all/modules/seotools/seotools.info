@@ -17,7 +17,6 @@ dependencies[] = "metatag"
 dependencies[] = "pathauto"
 dependencies[] = "redirect"
 dependencies[] = "strongarm"
-dependencies[] = "wordstream"
 dependencies[] = "xmlsitemap"
 dependencies[] = "xmlsitemap_node"
 configure = "admin/config/search/seotools"
@@ -26,9 +25,9 @@ features[variable][] = "insight_contentanalysis_autorun"
 features[variable][] = "insight_contentanalysis_autorun_analyzers"
 apps[server] = 'development'
 apps[manifests][] = 'app/manifest.app'
-; Information added by drupal.org packaging script on 2012-01-28
-version = "7.x-1.0-alpha5"
+; Information added by drupal.org packaging script on 2013-06-17
+version = "7.x-1.0-alpha6"
 core = "7.x"
 project = "seotools"
-datestamp = "1327709459"
+datestamp = "1371478257"
 

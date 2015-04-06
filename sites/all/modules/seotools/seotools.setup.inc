@@ -86,35 +86,37 @@ function seotools_setup_1_form($form, $form_state) {
   }
 
   // WordStream setup
-  include_once(drupal_get_path('module', 'wordstream') . '/wordstream.admin.inc');
-  $f = wordstream_admin_settings(array(), $form_state);
-  $description = t('Wordstream gives you access to live keyword data.');
-  if (isset($f['wordstream_credits_per_month']['#markup']) && $f['wordstream_credits_per_month']['#markup']) {
-    $description = '<div class="messages status">' . t('Your WordStream account is setup correctly.') . '</div>' . $description;
-  	unset($f['wordstream_password']); 
-    $f['wordstream_username']['#type'] = 'item';
-    $f['wordstream_username']['#markup'] = $f['wordstream_username']['#default_value'];
-    $f['wordstream_username']['#description'] = '';
-    $f['wordstream_set'] = array(
-      '#type' => 'value',
-      '#value' => '1',
+  if (module_exists('wordstream')) {
+    include_once(drupal_get_path('module', 'wordstream') . '/wordstream.admin.inc');
+    $f = wordstream_admin_settings(array(), $form_state);
+    $description = t('Wordstream gives you access to live keyword data.');
+    if (isset($f['wordstream_credits_per_month']['#markup']) && $f['wordstream_credits_per_month']['#markup']) {
+      $description = '<div class="messages status">' . t('Your WordStream account is setup correctly.') . '</div>' . $description;
+    	unset($f['wordstream_password']); 
+      $f['wordstream_username']['#type'] = 'item';
+      $f['wordstream_username']['#markup'] = $f['wordstream_username']['#default_value'];
+      $f['wordstream_username']['#description'] = '';
+      $f['wordstream_set'] = array(
+        '#type' => 'value',
+        '#value' => '1',
+      );
+    }
+    $form['wordstream'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Wordstream setup'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+      '#description' => $description,
     );
+  
+    unset($f['wordstream_cache_time']);
+    unset($f['wordstream_stats_report_options']);
+    unset($f['actions']);
+    unset($f['#theme']);
+    unset($f['#submit']);
+  
+    $form['wordstream'] = array_merge($form['wordstream'], $f);
   }
-  $form['wordstream'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Wordstream setup'),
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
-    '#description' => $description,
-  );
-
-  unset($f['wordstream_cache_time']);
-  unset($f['wordstream_stats_report_options']);
-  unset($f['actions']);
-  unset($f['#theme']);
-  unset($f['#submit']);
-
-  $form['wordstream'] = array_merge($form['wordstream'], $f);
 
   // Alchemy setup
   include_once(drupal_get_path('module', 'alchemy') . '/alchemy.admin.inc');
@@ -166,18 +168,20 @@ function seotools_setup_1_form_validate($form, &$form_state) {
 	}
 	
 	// validate WordStream account
-	if (!isset($values['wordstream_set'])) {
-	  $wordstream = wordstream_include_api_class($values['wordstream_username'], $values['wordstream_password']);
-	  $account = 1;
-	  if ($wordstream) {
-	    $ret = $wordstream->getAPICredits();
-	    if ($ret->credits_per_month) {
-	    	$account = 1;
-	    }  
-	  }
-	  if (!$account) {
-	    form_set_error('wordstream_username', t('Unable to log in to WordStream. Please enter a valid WordStream API username and password.'));
-	  }
+	if (module_exists('wordstream')) {
+  	if (!isset($values['wordstream_set'])) {
+  	  $wordstream = wordstream_include_api_class($values['wordstream_username'], $values['wordstream_password']);
+  	  $account = 0;
+  	  if ($wordstream) {
+  	    $ret = $wordstream->getAPICredits();
+  	    if ($ret->credits_per_month) {
+  	    	$account = 1;
+  	    }  
+  	  }
+  	  if (!$account) {
+  	    form_set_error('wordstream_username', t('Unable to log in to WordStream. Please enter a valid WordStream API username and password.'));
+  	  }
+  	}
 	}
 	
   // validate Google Analytics account
@@ -193,9 +197,11 @@ function seotools_setup_1_form_submit($form, &$form_state) {
 	    variable_set('googleanalytics_account', $values['googleanalytics_account']);
 	  }
   }
-  if (!isset($values['wordstream_set'])) {
-  	variable_set('wordstream_username', $values['wordstream_username']);
-  	variable_set('wordstream_password', $values['wordstream_password']);
+  if (module_exists('wordstream')) {
+    if (!isset($values['wordstream_set'])) {
+    	variable_set('wordstream_username', $values['wordstream_username']);
+    	variable_set('wordstream_password', $values['wordstream_password']);
+    }
   }
   if (!isset($values['alchemy_set'])) {
     variable_set('alchemy_apikey', $values['alchemy_apikey']);

@@ -33,6 +33,13 @@ else {
  * Called when page is loaded, or content added via javascript.
  */
 FB_JS.drupalBehaviors = function(context) {
+
+  // Sanity check.
+  if (!Drupal.settings.fb) {
+    // Reach here when Drupal footer is not rendered in page template.
+    Drupal.settings.fb = {};
+  }
+
   // Respond to our jquery pseudo-events
   var events = jQuery(document).data('events');
   if (!events || !events.fb_session_change) {
@@ -66,7 +73,9 @@ FB_JS.drupalBehaviors = function(context) {
 
   if (Drupal.settings.fb.fb_reloading) {
     // The reloading flag helps us avoid infinite loops.  But will accidentally prevent a reload in some cases. We really want to prevent a reload for a few seconds.
-    setTimeout(function() {Drupal.settings.fb.fb_reloading = false;}, 5000);
+    setTimeout(function() {
+      Drupal.settings.fb.fb_reloading = false;
+    }, 5000);
   }
 };
 
@@ -85,6 +94,13 @@ window.fbAsyncInit = function() {
     // Trust login status passed into us.  No getLoginStatus
     FB_JS.fbAsyncInitFinal();
 
+  }
+  else if (!Drupal.settings.fb.fb_init_settings ||
+           !Drupal.settings.fb.fb_init_settings.appId) {
+    // Once upon a time, we could test FB._apikey to learn whether FB was initialize with an appId.  Now, there is no way to do that.  So the test above uses the data we pass in.  Unfortunately if FB is not initialized by our code things may not work properly here.
+
+    // Cannot call getLoginStatus when not hosting an app.
+    FB_JS.fbAsyncInitFinal();
   }
   else {
     FB_JS.getLoginStatus(function(response) {
@@ -114,7 +130,9 @@ FB_JS.fbAsyncInitFinal = function(response) {
 
   jQuery.event.trigger('fb_init');  // Trigger event for third-party modules.
 
-  FB_JS.authResponseChange(response); // This will act only if fbu changed.
+  if (response) {
+    FB_JS.authResponseChange(response); // This will act only if fbu changed.
+  }
 
   FB_JS.eventSubscribe();  // Get notified when session changes
 
@@ -184,10 +202,18 @@ FB_JS.getUrlVars = function(href) {
  * Reload the current page, whether on canvas page or facebook connect.
  *
  */
+FB_JS.reloading = false // semaphore prevents concurrent reloads.
 FB_JS.reload = function(destination) {
-
-  // Avoid infinite reloads.  Esp on canvas pages when third-party cookies disabled.
+  if (FB_JS.reloading) {
+    // We are attempting to reload two times at once.
+    return;
+  }
+  else {
+    FB_JS.reloading = true;
+  }
+  // Avoid repeated reloads.  Esp on canvas pages when third-party cookies disabled.
   if (Drupal.settings.fb.fb_reloading) {
+    // We are attempting a reload one after another.
     jQuery.event.trigger('fb_devel', destination); // Debug. JS and PHP SDKs are not in sync.
     return;
   }
@@ -231,15 +257,16 @@ FB_JS.reload = function(destination) {
   }
 
   // Feedback that entire page may be reloading.
-  // @TODO improve the appearance of this, make it customizable.
-  // This unweildy set of tags should make a progress bar in any Drupal site.
-  var fbMarkup = jQuery('.fb_connected,.fb_not_connected').wrap('<div class="progress" />').wrap('<div class="bar" />').wrap('<div class="filled" />');
-  if (fbMarkup.length) {
-    fbMarkup.hide(); // Hides FBML, leaves progress bar.
-  }
-  else {
-    // If no markup changed, throw a progress bar at the top of the page.
-    jQuery('body').prepend('<div id="fb_js_pb" class="progress"><div class="bar"><div class="filled"></div></div></div>');
+  if (typeof(Drupal.settings.fb.reload_progress) == 'undefined' || Drupal.settings.fb.reload_progress) {
+    // This unweildy set of tags should turn facebook-specific markup into a progress indicator.
+    var fbMarkup = jQuery('.fb_connected,.fb_not_connected').wrap('<div class="progress" />').wrap('<div class="bar" />').wrap('<div class="filled" />');
+    if (fbMarkup.length) {
+      fbMarkup.hide(); // Hides FBML, leaves progress bar.
+    }
+
+
+    // Spinning progress indicator
+    jQuery('body').prepend('<div id="fb_reload"><div class="fb_spinner"></div></div>');
   }
 
   // Use POST to get past any caching on the server.
@@ -315,6 +342,13 @@ FB_JS.authResponseChange = function(response) {
     // Drupal.settings.fb.fbu (from server) not the same as status.fbu (from javascript).
     status.changed = true;
   }
+  else if (status.fbu && !response.authResponse) {
+    // A bug in facebook's all.js, user has logged out yet FB.getUserID() still returns their id!
+    // This is our workaround.
+    status.changed = true;
+    status.fbu = null;
+  }
+
 
   if (status.changed) {
     // Remember the fbu.
@@ -461,7 +495,7 @@ FB_JS.testGetLoginStatus = function(callback) {
 
 // Quick test whether object contains anything.
 FB_JS.isEmpty = function(ob) {
-  for(var i in ob){
+  for (var i in ob) {
     return false;
   }
   return true;

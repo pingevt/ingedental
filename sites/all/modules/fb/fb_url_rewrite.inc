@@ -48,12 +48,16 @@ function _fb_settings_url_rewrite_prefixes() {
  * For internal use only (see fb_session.inc).
  */
 function _fb_settings_parse($key) {
-  // XXX will this $_GET[q] stuff still work in D7???
-  if (isset($_GET['q'])) {
-    $path = $_GET['q'];
+  if (!function_exists('request_path')) {
+    // May not exist if settings.php is being include in drupal utilities that are not drupal proper.
+    return;
+  }
+
+  // TODO: confirm this working in D7
+  if ($path = request_path()) {
     $pos = strpos($path, $key . '/');
     if ($pos !== FALSE) {
-      // Too soon for arg() function.
+      // Too soon for arg() function. (Actually in D7 no longer true.  We could use arg() here.)
       $args = explode('/', $path);
       $i = 0;
       while (isset($args[$i]) && isset($args[$i+1])) {
@@ -112,6 +116,9 @@ function fb_url_outbound_alter(&$path, &$options, $original_path) {
 
     // We have manually set the prefix, so remove the options prefix.
     $options['prefix'] = '';
+
+    // Hack to workaround http://drupal.org/node/1801044
+    $options['alias'] = TRUE;
   }
 
   // Since we called fb_canvas_url_alter already, supress it from acting again.
@@ -125,7 +132,6 @@ function fb_url_outbound_alter(&$path, &$options, $original_path) {
  *
  */
 function fb_url_inbound_alter(&$path, $original_path, $path_language) {
-
   // See if this is a request for us.
   if (strpos($path, FB_SETTINGS_CB . '/') === 0) {
     // Too soon for arg() function.
@@ -163,4 +169,3 @@ function fb_url_inbound_alter(&$path, $original_path, $path_language) {
 
   $result = $path;
 }
-
