@@ -13,7 +13,7 @@
 (function ($, Drupal, window, document, undefined) {
 
   $(document).ready(function() {
-    console.log(Drupal);
+    //console.log(Drupal);
     if($('#content #page-title').html() == 'Callie\'s Corner') {
       $('#content #page-title').prepend('<img style="float: right; width: 134px;" class="callies-corner-logo " src="' + Drupal.settings.basePath + Drupal.settings.theme.theme_path + '/images/callie_logo.png" alt="Callie\'s Corner" title="Callie\'s Corner" />');
     }
