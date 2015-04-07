@@ -148,6 +148,13 @@ function id_preprocess_html(&$variables, $hook) {
  *   The name of the template being rendered ("node" in this case.)
  */
 function id_preprocess_node(&$variables, $hook) {
+
+  // Add pubdate to submitted variable.
+  $variables['pubdate'] = '<time datetime="' . format_date($variables['node']->created, 'custom', 'c') . '">' . $variables['date'] . '</time>';
+  if ($variables['display_submitted']) {
+    $variables['submitted'] = t('Submitted by !username on !datetime', array('!username' => $variables['name'], '!datetime' => $variables['pubdate']));
+  }
+
   // Optionally, run node-type-specific preprocess functions, like
   // id_preprocess_node_page() or id_preprocess_node_story().
   $function = __FUNCTION__ . '_' . $variables['node']->type;
@@ -158,5 +165,13 @@ function id_preprocess_node(&$variables, $hook) {
 
 function id_preprocess_node_blog_entry(&$variables, $hook) {
 //dpm(debug_backtrace());
+}
+
+function id_preprocess_comment(&$variables, $hook) {
+
+  // Add pubdate to submitted variable.
+  $variables['pubdate'] = '<time datetime="' . format_date($variables['comment']->created, 'custom', 'c') . '">' . $variables['created'] . '</time>';
+  $variables['submitted'] = t('!username replied on !datetime', array('!username' => $variables['author'], '!datetime' => $variables['pubdate']));
+
 }
 

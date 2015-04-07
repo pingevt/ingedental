@@ -24,6 +24,20 @@
 
 @img_dir: "../../images/";
 
+#admin-menu-wrapper .admin-menu-icon {
+  background: white;
+}
+::selection {
+  background: #e8edef;
+  /* Safari */
+
+}
+::-moz-selection {
+  background: #e8edef;
+  /* Firefox */
+
+}
+
 .box-shadow (@x: 0, @y: 0, @blur: 1px, @spread: 2px, @color: #000) {
   box-shadow: @arguments;
   -moz-box-shadow: @arguments;
@@ -141,7 +155,7 @@ h1, h2, h3, h4, h5, h6 {
 	position: absolute;
 	top: 0;
 	left: 10px;
-	z-index: 1001;
+	z-index: 901;
 	width: 182px;
 	height: 127px;
 	cursor: pointer;
@@ -153,7 +167,7 @@ h1, h2, h3, h4, h5, h6 {
 	position: absolute;
 	top: 127px;
 	left: 10px;
-	z-index: 1001;
+	z-index: 901;
 	width: 92px;
 	height: 42px;
 	cursor: pointer;
@@ -340,7 +354,7 @@ h1, h2, h3, h4, h5, h6 {
 #contentWrapper {
 	position: relative;
 	background: @main-content-bg-color url('@{img_dir}contentBG.png') no-repeat bottom right;
-	min-height: 395px;
+	min-height: 970px;
 	.box-shadow-inner(5px, 5px, 5px, 0px, rgba(0, 0, 0, 0.3));
 }
 
@@ -361,10 +375,8 @@ h1, h2, h3, h4, h5, h6 {
 	/*position: absolute;
 	bottom: 2px;
 	left: 0;*/
-
 	width: 700px;
 	text-align: center;
-
 	font-size: .8em;
 	color: @footer-color;
 }
@@ -426,8 +438,14 @@ ul#fv-links li p.desc {
 }
 
 #googlemap {
-	width: 425px;
+	width: 670px;
 	margin: 0 auto;
+
+  iframe {
+    border: none;
+    margin: 0;
+    overflow: hidden;
+  }
 }
 
 
@@ -492,6 +510,31 @@ ul#fv-links li p.desc {
 
 #angieslist a img {
   width: 120px;
+}
+
+
+/* ========== ========== ==========
+/*  RATE A DENTIST Block
+/* ========== ========== ========*/
+
+#rate-a-dentist {
+  width: 168px;
+  margin-top: 7px;
+  text-align: center;
+  color: #5b747d;
+}
+
+#rate-a-dentist a {
+  display: block;
+  width: 153px;
+  margin: 0 auto;
+  text-align: center;
+  color: #5b747d;
+  font-size: 12px;
+  line-height: 15px;
+}
+#rate-a-dentist a img {
+
 }
 
 
@@ -572,4 +615,156 @@ a.file {
 
 a.pdf {
   background: url('@{img_dir}mime/16/pdf.png') center left no-repeat;
+}
+
+.view-id-blog .view-header {
+  padding: 20px 0;
+  margin: 20px 0 36px;
+  font-size: 110%;
+  /*.rounded-corners(18px);
+    background: fadeout(lighten(@main-red, 60%), 20%);*/
+
+  -moz-border-radius-bottomright: 18px;
+  -moz-border-radius-bottomleft: 18px;
+  border-bottom-right-radius: 18px;
+  border-bottom-left-radius: 18px;
+  background: rgba(256, 256, 256, 0.5);
+  border-top: 3px solid #5f3b42;
+  box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
+}
+#mainContentCol article.node-blog-entry {
+  margin-bottom: 32px;
+}
+#mainContentCol article.node-blog-entry h2 {
+  line-height: 18px;
+}
+#mainContentCol article.node-blog-entry .submitted {
+  margin: 0px;
+  color: #90a6ae;
+  font-size: 9pt;
+  line-height: 23px;
+}
+#mainContentCol article.node-blog-entry .submitted a.username,
+#mainContentCol article.node-blog-entry .submitted span.username {
+  color: #5b747d;
+  font-size: 90%;
+}
+#mainContentCol article.node-blog-entry ul.links {
+  color: #b1828b;
+  font-size: 9pt;
+}
+#mainContentCol article.node-blog-entry ul.links a {
+  color: #b1828b;
+}
+#mainContentCol article.node-blog-entry img.float-right {
+  margin: 0 0 20px 20px;
+}
+#mainContentCol article.node-blog-entry img.float-left {
+  margin: 0 20px 20px 0px;
+}
+#mainContentCol article.node-blog-entry .field-name-body {
+  width: 80%;
+  float: left;
+}
+#mainContentCol article.node-blog-entry .field-name-field-tags {
+  width: 15%;
+  float: left;
+  margin-top: 1.5em;
+  padding: 15px;
+  background: rgba(256, 256, 256, 0.5);
+  border-top: 1px solid #5f3b42;
+}
+#mainContentCol article.node-blog-entry .comments {
+  clear: both;
+  margin: 1.5em 3.5em;
+  padding: 1.5em;
+  background: rgba(256, 256, 256, 0.5);
+}
+#mainContentCol article.node-blog-entry .comments .comment {
+  border-top: 1px solid #5f3b42;
+  margin-top: 30px;
+  padding: 5px 40px 0 0;
+  position: relative;
+}
+#mainContentCol article.node-blog-entry .comments .comment header .submitted {
+  padding: 0;
+  margin: 0;
+}
+#mainContentCol article.node-blog-entry .comments .comment header .comment-title {
+  margin: 0;
+}
+#mainContentCol article.node-blog-entry .comments .comment header .comment-title a.permalink {
+  font-size: 100%;
+}
+#mainContentCol article.node-blog-entry .comments .comment ul.links {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0;
+  display: none;
+}
+#mainContentCol article.node-blog-entry .comments .comment:hover ul.links {
+  display: block;
+}
+#mainContentCol article.node-blog-entry .comments h2.title {
+  padding: 0;
+}
+#mainContentCol article.node-blog-entry .comments h2.title.comment-form {
+  margin-top: 45px;
+}
+#mainContentCol article.node-blog-entry .links {
+  clear: both;
+  padding: 0 3.5em;
+  display: block;
+}
+article.node-blog-entry.node-teaser .field-name-body {
+  width: inherit;
+  float: none;
+}
+article.node-blog-entry.node-teaser .field-name-field-tags {
+  width: inherit;
+  float: none;
+  margin-top: inherit;
+  padding: inherit;
+  background: rgba(256, 256, 256, 0.5);
+  border-top: 1px solid #5f3b42;
+}
+#navCol #block-block-6 {
+  background-color: transparent;
+  height: 40px;
+}
+#navCol #block-block-6 .sm-ic {
+  display: block;
+  width: 36px;
+  height: 36px;
+  float: left;
+  margin-left: 8px;
+  text-indent: -999999px;
+}
+#navCol #block-block-6 .facebook-ic {
+  background: transparent url('../../images/facebook_ic.png') left top no-repeat;
+  margin-left: 0px;
+}
+#navCol #block-block-6 .facebook-ic:hover {
+  background-position: left -36px;
+}
+#navCol #block-block-6 .twitter-ic {
+  background: transparent url('../../images/twitter_ic.png') left top no-repeat;
+}
+#navCol #block-block-6 .twitter-ic:hover {
+  background-position: left -36px;
+}
+#navCol #block-block-6 .linkedin-ic {
+  background: transparent url('../../images/linkedin_ic.png') left top no-repeat;
+}
+#navCol #block-block-6 .linkedin-ic:hover {
+  background-position: left -36px;
+}
+#navCol #block-block-6 .google-ic {
+  background: transparent url('../../images/google_ic.png') left top no-repeat;
+}
+#navCol #block-block-6 .google-ic:hover {
+  background-position: left -36px;
 }

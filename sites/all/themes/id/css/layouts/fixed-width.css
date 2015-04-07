@@ -17,12 +17,10 @@
 ::selection {
   background: #e8edef;
   /* Safari */
-
 }
 ::-moz-selection {
   background: #e8edef;
   /* Firefox */
-
 }
 body {
   background: url('../../images/bg.gif') top center;
@@ -54,7 +52,6 @@ h6 {
 .region-bottom {
   /* If you want to make the page a fixed width and centered in the viewport,
    * this is the standards-compliant way to do that. */
-
   margin-left: auto;
   margin-right: auto;
   width: 900px;
@@ -281,7 +278,6 @@ h6 {
   /*position: absolute;
 	bottom: 2px;
 	left: 0;*/
-
   width: 700px;
   text-align: center;
   font-size: .8em;
@@ -329,9 +325,13 @@ ul#fv-links li p.desc {
   font-size: 90%;
 }
 #googlemap {
-  /*width: 425px;*/
-
+  width: 670px;
   margin: 0 auto;
+}
+#googlemap iframe {
+  border: none;
+  margin: 0;
+  overflow: hidden;
 }
 /* ========== ========== ==========
 /* GALLERY
@@ -384,18 +384,15 @@ ul#fv-links li p.desc {
 #angieslist a img {
   width: 120px;
 }
-
 /* ========== ========== ==========
 /*  RATE A DENTIST Block
 /* ========== ========== ========*/
-
 #rate-a-dentist {
   width: 168px;
   margin-top: 7px;
   text-align: center;
   color: #5b747d;
 }
-
 #rate-a-dentist a {
   display: block;
   width: 153px;
@@ -405,10 +402,6 @@ ul#fv-links li p.desc {
   font-size: 12px;
   line-height: 15px;
 }
-#rate-a-dentist a img {
-
-}
-
 /* ========== ========== ==========
 /*  Block
 /* ========== ========== ========*/
@@ -468,7 +461,6 @@ a.pdf {
   font-size: 110%;
   /*.rounded-corners(18px);
     background: fadeout(lighten(@main-red, 60%), 20%);*/
-
   -moz-border-radius-bottomright: 18px;
   -moz-border-radius-bottomleft: 18px;
   border-bottom-right-radius: 18px;
