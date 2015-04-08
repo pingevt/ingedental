@@ -148,7 +148,6 @@ function id_preprocess_html(&$variables, $hook) {
  *   The name of the template being rendered ("node" in this case.)
  */
 function id_preprocess_node(&$variables, $hook) {
-
   // Add pubdate to submitted variable.
   $variables['pubdate'] = '<time datetime="' . format_date($variables['node']->created, 'custom', 'c') . '">' . $variables['date'] . '</time>';
   if ($variables['display_submitted']) {
@@ -173,5 +172,14 @@ function id_preprocess_comment(&$variables, $hook) {
   $variables['pubdate'] = '<time datetime="' . format_date($variables['comment']->created, 'custom', 'c') . '">' . $variables['created'] . '</time>';
   $variables['submitted'] = t('!username replied on !datetime', array('!username' => $variables['author'], '!datetime' => $variables['pubdate']));
 
+}
+
+/**
+ * Implements hook_preprocess_username().
+ */
+function id_preprocess_username(&$variables) {
+  if (!isset($variables['attributes_array']['lang']) && isset($variables['attributes_array']['xml:lang'])) {
+    $variables['attributes_array']['lang'] = $variables['attributes_array']['xml:lang'];
+  }
 }
 
