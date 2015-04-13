@@ -110,9 +110,9 @@
   <?php endif; ?>
 
   <?php if(isset($node) && $node->type == 'blog_entry') {
-    print '<meta property="og:title" content="'. $node->title .'"/> ';                                       // - The title of the entity.
-    print '<meta property="og:image" content="http://ingedental.com'.$node->field_fb_link_img_url['und'][0]['value'].'"/> ';       // - The URL to an image that represents the entity. Images must be at least 50 pixels by 50 pixels. Square images work best, but you are allowed to use images up to three times as wide as they are tall.
-    print '<meta property="og:site_name" content="IngeDental.com"/> ';                                       // - A human-readable name for your site, e.g., "IMDb".
+    //print '<meta property="og:title" content="'. $node->title .'"/> ';                                       // - The title of the entity.
+    //print '<meta property="og:image" content="http://ingedental.com'.$node->field_fb_link_img_url['und'][0]['value'].'"/> ';       // - The URL to an image that represents the entity. Images must be at least 50 pixels by 50 pixels. Square images work best, but you are allowed to use images up to three times as wide as they are tall.
+    //print '<meta property="og:site_name" content="IngeDental.com"/> ';                                       // - A human-readable name for your site, e.g., "IMDb".
   }
   ?>
 
