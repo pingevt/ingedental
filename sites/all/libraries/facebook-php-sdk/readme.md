@@ -1,5 +1,19 @@
-Facebook PHP SDK (v.3.2.0)
-==========================
+### New SDK Released
+
+We've released version 4 of the Facebook SDK for PHP here: [https://github.com/facebook/facebook-php-sdk-v4](https://github.com/facebook/facebook-php-sdk-v4)
+Please use the new repository for new projects and contributions.
+See the [Facebook Developers](https://developers.facebook.com/docs/php/) site
+ for documentation.
+
+-----
+
+-----
+
+-----
+
+-----
+
+Facebook PHP SDK (v.3.2.3) (DEPRECATED)
 
 The [Facebook Platform](http://developers.facebook.com/) is
 a set of APIs that make your app more social.
@@ -15,40 +29,70 @@ Usage
 
 The [examples][examples] are a good place to start. The minimal you'll need to
 have is:
+```php
+require 'facebook-php-sdk/src/facebook.php';
 
-    require 'facebook-php-sdk/src/facebook.php';
+$facebook = new Facebook(array(
+  'appId'  => 'YOUR_APP_ID',
+  'secret' => 'YOUR_APP_SECRET',
+));
 
-    $facebook = new Facebook(array(
-      'appId'  => 'YOUR_APP_ID',
-      'secret' => 'YOUR_APP_SECRET',
-    ));
-
-    // Get User ID
-    $user = $facebook->getUser();
+// Get User ID
+$user = $facebook->getUser();
+```
 
 To make [API][API] calls:
+```php
+if ($user) {
+  try {
+    // Proceed knowing you have a logged in user who's authenticated.
+    $user_profile = $facebook->api('/me');
+  } catch (FacebookApiException $e) {
+    error_log($e);
+    $user = null;
+  }
+}
+```
 
-    if ($user) {
-      try {
-        // Proceed knowing you have a logged in user who's authenticated.
-        $user_profile = $facebook->api('/me');
-      } catch (FacebookApiException $e) {
-        error_log($e);
-        $user = null;
-      }
-    }
+You can make api calls by choosing the `HTTP method` and setting optional `parameters`:
+```php
+$facebook->api('/me/feed/', 'post', array(
+	'message' => 'I want to display this message on my wall'
+));
+```
+
 
 Login or logout url will be needed depending on current user state.
+```php
+if ($user) {
+  $logoutUrl = $facebook->getLogoutUrl();
+} else {
+  $loginUrl = $facebook->getLoginUrl();
+}
+```
 
-    if ($user) {
-      $logoutUrl = $facebook->getLogoutUrl();
-    } else {
-      $loginUrl = $facebook->getLoginUrl();
-    }
+With Composer:
 
-[examples]: http://github.com/facebook/facebook-php-sdk/blob/master/examples/example.php
+- Add the `"facebook/php-sdk": "@stable"` into the `require` section of your `composer.json`.
+- Run `composer install`.
+- The example will look like
+
+```php
+if (($loader = require_once __DIR__ . '/vendor/autoload.php') == null)  {
+  die('Vendor directory not found, Please run composer install.');
+}
+
+$facebook = new Facebook(array(
+  'appId'  => 'YOUR_APP_ID',
+  'secret' => 'YOUR_APP_SECRET',
+));
+
+// Get User ID
+$user = $facebook->getUser();
+```
+
+[examples]: /examples/example.php
 [API]: http://developers.facebook.com/docs/api
-
 
 Tests
 -----
