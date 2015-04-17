@@ -14,7 +14,8 @@ function ingedental_blog_ckeditor_profile_defaults() {
       'settings' => array(
         'ss' => 2,
         'toolbar' => '[
-    [\'Format\',\'Bold\',\'Italic\',\'-\',\'NumberedList\',\'BulletedList\',\'-\',\'Link\',\'Unlink\']
+    [\'Format\',\'Styles\',\'Bold\',\'Italic\',\'-\',\'NumberedList\',\'BulletedList\',\'-\',\'Link\',\'Unlink\'],
+    [\'Paste\',\'PasteText\',\'PasteFromWord\']
 ]',
         'expand' => 't',
         'default' => 't',
