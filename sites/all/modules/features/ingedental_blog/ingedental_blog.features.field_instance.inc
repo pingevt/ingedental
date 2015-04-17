@@ -10,7 +10,8 @@
 function ingedental_blog_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'facebook_publication-link-field_facebook_description'
+  // Exported field_instance:
+  // 'facebook_publication-link-field_facebook_description'
   $field_instances['facebook_publication-link-field_facebook_description'] = array(
     'bundle' => 'link',
     'default_value' => NULL,
@@ -180,7 +181,8 @@ function ingedental_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-link-field_facebook_published'
+  // Exported field_instance:
+  // 'facebook_publication-link-field_facebook_published'
   $field_instances['facebook_publication-link-field_facebook_published'] = array(
     'bundle' => 'link',
     'default_value' => array(
@@ -217,7 +219,8 @@ function ingedental_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-link-field_facebook_scheduled_publish'
+  // Exported field_instance:
+  // 'facebook_publication-link-field_facebook_scheduled_publish'
   $field_instances['facebook_publication-link-field_facebook_scheduled_publish'] = array(
     'bundle' => 'link',
     'default_value' => NULL,
@@ -257,7 +260,8 @@ function ingedental_blog_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-photo-field_facebook_feed_targeting'
+  // Exported field_instance:
+  // 'facebook_publication-photo-field_facebook_feed_targeting'
   $field_instances['facebook_publication-photo-field_facebook_feed_targeting'] = array(
     'bundle' => 'photo',
     'default_value' => NULL,
@@ -292,7 +296,8 @@ See [Feed Targeting](#targeting)',
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-photo-field_facebook_message'
+  // Exported field_instance:
+  // 'facebook_publication-photo-field_facebook_message'
   $field_instances['facebook_publication-photo-field_facebook_message'] = array(
     'bundle' => 'photo',
     'default_value' => NULL,
@@ -326,7 +331,8 @@ See [Feed Targeting](#targeting)',
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-photo-field_facebook_published'
+  // Exported field_instance:
+  // 'facebook_publication-photo-field_facebook_published'
   $field_instances['facebook_publication-photo-field_facebook_published'] = array(
     'bundle' => 'photo',
     'default_value' => array(
@@ -363,7 +369,8 @@ See [Feed Targeting](#targeting)',
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-photo-field_facebook_scheduled_publish'
+  // Exported field_instance:
+  // 'facebook_publication-photo-field_facebook_scheduled_publish'
   $field_instances['facebook_publication-photo-field_facebook_scheduled_publish'] = array(
     'bundle' => 'photo',
     'default_value' => NULL,
@@ -437,7 +444,8 @@ See [Feed Targeting](#targeting)',
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-photo-field_facebook_targeting'
+  // Exported field_instance:
+  // 'facebook_publication-photo-field_facebook_targeting'
   $field_instances['facebook_publication-photo-field_facebook_targeting'] = array(
     'bundle' => 'photo',
     'default_value' => NULL,
@@ -543,7 +551,8 @@ name|link',
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-post-field_facebook_description'
+  // Exported field_instance:
+  // 'facebook_publication-post-field_facebook_description'
   $field_instances['facebook_publication-post-field_facebook_description'] = array(
     'bundle' => 'post',
     'default_value' => NULL,
@@ -713,7 +722,8 @@ name|link',
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-post-field_facebook_published'
+  // Exported field_instance:
+  // 'facebook_publication-post-field_facebook_published'
   $field_instances['facebook_publication-post-field_facebook_published'] = array(
     'bundle' => 'post',
     'default_value' => array(
@@ -750,7 +760,8 @@ name|link',
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-post-field_facebook_scheduled_publish'
+  // Exported field_instance:
+  // 'facebook_publication-post-field_facebook_scheduled_publish'
   $field_instances['facebook_publication-post-field_facebook_scheduled_publish'] = array(
     'bundle' => 'post',
     'default_value' => NULL,
@@ -792,7 +803,8 @@ UNIX timestamp',
     ),
   );
 
-  // Exported field_instance: 'facebook_publication-post-field_facebook_targeting'
+  // Exported field_instance:
+  // 'facebook_publication-post-field_facebook_targeting'
   $field_instances['facebook_publication-post-field_facebook_targeting'] = array(
     'bundle' => 'post',
     'default_value' => NULL,

@@ -56,6 +56,141 @@ function ingedental_blog_default_facebook_publication_type() {
 }
 
 /**
+ * Implements hook_image_default_styles().
+ */
+function ingedental_blog_image_default_styles() {
+  $styles = array();
+
+  // Exported image style: blog_full_width.
+  $styles['blog_full_width'] = array(
+    'label' => 'Blog full width',
+    'effects' => array(
+      1 => array(
+        'name' => 'manualcrop_crop',
+        'data' => array(
+          'width' => 580,
+          'height' => '',
+          'keepproportions' => 0,
+          'reuse_crop_style' => '',
+          'style_name' => 'blog_full_width',
+        ),
+        'weight' => 0,
+      ),
+      2 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 580,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  // Exported image style: blog_half_width.
+  $styles['blog_half_width'] = array(
+    'label' => 'Blog half width',
+    'effects' => array(
+      3 => array(
+        'name' => 'manualcrop_crop',
+        'data' => array(
+          'width' => 290,
+          'height' => '',
+          'keepproportions' => 0,
+          'reuse_crop_style' => '',
+          'style_name' => 'blog_half_width',
+        ),
+        'weight' => 0,
+      ),
+      4 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 290,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  // Exported image style: blog_third_width.
+  $styles['blog_third_width'] = array(
+    'label' => 'Blog third width',
+    'effects' => array(
+      5 => array(
+        'name' => 'manualcrop_crop',
+        'data' => array(
+          'width' => 193,
+          'height' => '',
+          'keepproportions' => 0,
+          'reuse_crop_style' => '',
+          'style_name' => 'blog_third_width',
+        ),
+        'weight' => 0,
+      ),
+      6 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 193,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  // Exported image style: fb_general.
+  $styles['fb_general'] = array(
+    'label' => 'FB general',
+    'effects' => array(
+      9 => array(
+        'name' => 'manualcrop_crop',
+        'data' => array(
+          'width' => '',
+          'height' => '',
+          'keepproportions' => 0,
+          'reuse_crop_style' => '',
+          'style_name' => 'fb_general',
+        ),
+        'weight' => 0,
+      ),
+    ),
+  );
+
+  // Exported image style: fb_link_image.
+  $styles['fb_link_image'] = array(
+    'label' => 'FB link image',
+    'effects' => array(
+      7 => array(
+        'name' => 'manualcrop_crop_and_scale',
+        'data' => array(
+          'width' => 180,
+          'height' => 180,
+          'upscale' => 0,
+          'respectminimum' => 1,
+          'onlyscaleifcrop' => 0,
+          'style_name' => 'fb_link_image',
+        ),
+        'weight' => 0,
+      ),
+      8 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 80,
+          'height' => 80,
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  return $styles;
+}
+
+/**
  * Implements hook_node_info().
  */
 function ingedental_blog_node_info() {
