@@ -1,0 +1,45 @@
+<?php
+
+function _twitter_account_list() {
+  module_load_include('inc', 'twitter');
+
+  $options = array();
+  $twitter_accounts = twitter_load_authenticated_accounts();
+  foreach ($twitter_accounts as $twitter_account) {
+    $options[$twitter_account->id] = $twitter_account->screen_name;
+  }
+
+  return $options;
+}
+
+function _facebook_page_list() {
+  module_load_include('inc', 'fb_autopost_entity', 'fb_autopost_entity.rules');
+  return fb_autopost_entity_available_facebook_pages();
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function ingedental_entity_presave($entity, $type) {
+  if ($type == 'node' && $entity->type == "blog_entry") {
+    if (!empty($entity->field_link_image[LANGUAGE_NONE])) {
+      $file = file_load($entity->field_link_image[LANGUAGE_NONE][0]['fid']);
+      $image_uri = $file->uri;
+
+      $derivative_uri = image_style_path('fb_link_image', $image_uri);
+      if (!file_exists($derivative_uri)) {
+        image_style_create_derivative('fb_link_image', $image_uri, $derivative_uri);
+      }
+    }
+
+    if (!empty($entity->field_fb_image[LANGUAGE_NONE])) {
+      $file = file_load($entity->field_fb_image[LANGUAGE_NONE][0]['fid']);
+      $image_uri = $file->uri;
+
+      $derivative_uri = image_style_path('fb_general', $image_uri);
+      if (!file_exists($derivative_uri)) {
+        image_style_create_derivative('fb_general', $image_uri, $derivative_uri);
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+name = IngeDental Custom Functionality
+description = "Provides custom functionality for the IngeDental website and blog."
+package = IngeDental
+core = 7.x
+; configure = admin/config/administration/admin_menu
+
+dependencies[] = twitter
+
+files[] = classes/FBAutopostEntityIDPhoto.inc
+
+version = "7.x-1.0"

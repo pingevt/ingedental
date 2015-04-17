@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * Implements hook_update_N().
+ *
+ * Adds allowed_values_function for facebook field.
+ */
+function ingedental_update_7001() {
+  $field = field_info_field('field_facebook_page');
+
+  if ($field == NULL) {
+    $out = array(
+      '#abort' => array(
+        'success' => FALSE,
+        'query' => 'The field_facebook_page doesn\'t exist yet (which needs to happen before this update can run).',
+      ),
+    );
+    return $out;
+  }
+
+  unset($field['settings']['allowed_values']);
+  $field['settings']['allowed_values_function'] = '_facebook_page_list';
+  field_update_field($field);
+}

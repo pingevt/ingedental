@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the IngeDental Blog Feature feature.
+ */
+
+include_once 'ingedental_blog.features.inc';
