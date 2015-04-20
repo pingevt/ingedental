@@ -10,12 +10,24 @@
 // wrapping it with an "anonymous closure". See:
 // - http://drupal.org/node/1446420
 // - http://www.adequatelygood.com/2010/3/JavaScript-Module-Pattern-In-Depth
-(function ($, Drupal, window, document, undefined) {
 
+(function ($, Drupal, window, document, undefined) {
   $(document).ready(function() {
     //console.log(Drupal);
+    /*
     if($('#content #page-title').html() == 'Callie\'s Corner') {
       $('#content #page-title').prepend('<img style="float: right; width: 134px;" class="callies-corner-logo " src="' + Drupal.settings.basePath + Drupal.settings.theme.theme_path + '/images/callie_logo.png" alt="Callie\'s Corner" title="Callie\'s Corner" />');
     }
+    */
+
+    $('.node-blog-entry .field-name-body img').each(function() {
+      $el = $(this)
+      $el.wrap("<div class='img-container'></div>");
+
+      var classList = $el.attr('class').split(/\s+/);
+      $.each( classList, function(index, item) {
+        $el.parent().addClass(item);
+      });
+    });
   });
 })(jQuery, Drupal, this, this.document);

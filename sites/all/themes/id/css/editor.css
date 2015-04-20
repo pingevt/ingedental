@@ -1,0 +1,13 @@
+img .float-right {
+  float: right;
+  margin: 0 0 20px 20px;
+}
+img .float-left {
+  float: left;
+  margin: 0 20px 20px 0px;
+}
+img:hover {
+  opacity: 0.8;
+  filter: alpha(opacity=80);
+  /* For IE8 and earlier */
+}
