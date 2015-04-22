@@ -43,7 +43,7 @@ function ingedental_blog_ckeditor_profile_defaults() {
           ),
         ),
         'css_mode' => 'self',
-        'css_path' => '%t/css/editor.css',
+        'css_path' => '%tcss/editor.css',
         'css_style' => 'self',
         'styles_path' => '%t/ckeditor.styles.js?bob=2',
         'filebrowser' => 'none',
