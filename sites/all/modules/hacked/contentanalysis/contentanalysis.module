@@ -925,9 +925,7 @@ function contentanalysis_parse_context_metatags($context) {
     elseif (isset($nodemeta['title']['#attached']['metatag_set_preprocess_variable'][0][2])) {
       $context['meta_title'] = $nodemeta['title']['#attached']['metatag_set_preprocess_variable'][0][2];
     }
-    if (isset($nodemeta['keywords']['#attached']['drupal_add_html_head'][0][0]['#value'])) {
-      $context['meta_keywords'] = $nodemeta['keywords']['#attached']['drupal_add_html_head'][0][0]['#value'];
-    }
+
     if (!empty($context['inputs']['meta_description'])) {
       $types['meta_description'] = NULL;
       $context['meta_description'] = token_replace($context['inputs']['meta_description'], $types);
@@ -936,18 +934,35 @@ function contentanalysis_parse_context_metatags($context) {
       $types['meta_description'] = NULL;
       $context['meta_description'] = token_replace($context['node']->metatags[$context['node']->language]['description']['value'], $types);
     }
-    elseif (isset($nodemeta['description']['#attached']['metatag_set_preprocess_variable'][0][2])) {
-      $context['meta_description'] = $nodemeta['description']['#attached']['metatag_set_preprocess_variable'][0][2];
+    elseif (isset($nodemeta['description']['#attached']['drupal_add_html_head'][0][0]['#value'])) {
+      $context['meta_description'] = $nodemeta['description']['#attached']['drupal_add_html_head'][0][0]['#value'];
     }
+
+    if (!empty($context['inputs']['meta_keywords'])) {
+      $types['meta_keywords'] = NULL;
+      $context['meta_keywords'] = token_replace($context['inputs']['meta_keywords'], $types);
+    }
+    elseif (!empty($context['node']->metatags[$context['node']->language]['keywords']['value'])) {
+      $types['meta_keywords'] = NULL;
+      $context['meta_keywords'] = token_replace($context['node']->metatags[$context['node']->language]['keywords']['value'], $types);
+    }
+    elseif (isset($nodemeta['keywords']['#attached']['drupal_add_html_head'][0][0]['#value'])) {
+      $context['meta_keywords'] = $nodemeta['keywords']['#attached']['drupal_add_html_head'][0][0]['#value'];
+    }
+
+
     /*
+    if (isset($nodemeta['keywords']['#attached']['drupal_add_html_head'][0][0]['#value'])) {
+      $context['meta_keywords'] = $nodemeta['keywords']['#attached']['drupal_add_html_head'][0][0]['#value'];
+    }
     if (isset($nodemeta['description']['#attached']['drupal_add_html_head'][0][0]['#value'])) {
       $context['meta_description'] = $nodemeta['description']['#attached']['drupal_add_html_head'][0][0]['#value'];
     }
-    */
+
     if (!$context['meta_keywords'] && isset($globalmeta['keywords']['#attached']['drupal_add_html_head'][0][0]['#value'])) {
     	$context['meta_keywords'] = $globalmeta['keywords']['#attached']['drupal_add_html_head'][0][0]['#value'];
     }
-    /*
+
     if (!$context['meta_description'] && isset($globalmeta['description']['#attached']['drupal_add_html_head'][0][0]['#value'])) {
       $context['meta_description'] = $globalmeta['description']['#attached']['drupal_add_html_head'][0][0]['#value'];
     }
@@ -956,6 +971,7 @@ function contentanalysis_parse_context_metatags($context) {
   else if(!isset($context['meta_title'])) {
   	$context['meta_title'] = $context['title'];
   }
+
   return $context;
 }
 
