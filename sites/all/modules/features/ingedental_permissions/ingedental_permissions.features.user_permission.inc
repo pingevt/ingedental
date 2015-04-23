@@ -518,15 +518,6 @@ function ingedental_permissions_user_default_permissions() {
     'module' => 'oauth_common',
   );
 
-  // Exported permission: 'administer page titles'.
-  $permissions['administer page titles'] = array(
-    'name' => 'administer page titles',
-    'roles' => array(
-      'administrator' => 'administrator',
-    ),
-    'module' => 'page_title',
-  );
-
   // Exported permission: 'administer pathauto'.
   $permissions['administer pathauto'] = array(
     'name' => 'administer pathauto',
@@ -1278,16 +1269,6 @@ function ingedental_permissions_user_default_permissions() {
       'administrator' => 'administrator',
     ),
     'module' => 'fb_permissions',
-  );
-
-  // Exported permission: 'set page title'.
-  $permissions['set page title'] = array(
-    'name' => 'set page title',
-    'roles' => array(
-      'administrator' => 'administrator',
-      'blogger' => 'blogger',
-    ),
-    'module' => 'page_title',
   );
 
   // Exported permission: 'skip comment approval'.
