@@ -93,7 +93,7 @@ class FBAutopost extends Facebook {
 
   /**
    * Gets the endpoint of a publication
-   * 
+   *
    * @return string
    *   String containing the endpoint
    */
@@ -105,18 +105,18 @@ class FBAutopost extends Facebook {
    * Destination for the publication. An string with the page ID or 'me'.
    */
   private $destination;
-  
+
   /**
    * Privacy setting for the publications. This property is made public because
    * the getter method will give some formatting along with the property.
    */
   public $privacy;
-  
+
   /**
    * Stored publication type.
    */
   private $type;
-  
+
   /**
    * Boolean indicating wether to retry the publication or not when publishing
    * on the user's timeline if the acting user does not have a valid access
@@ -150,7 +150,7 @@ class FBAutopost extends Facebook {
    *   Page id (among those already selected via UI).
    *   If this is present it will override the parameter destination.
    *   Use 'me' to publish to the user's timeline
-   * @return
+   * @return string
    *   Facebook id string for the publication. Needed to edit, or delete the publication.
    * @throws FBAutopostException
    */
@@ -215,17 +215,20 @@ class FBAutopost extends Facebook {
 
   /**
    * Publishes on a single destination.
-   * 
+   *
    * @param string $publication
    *   The publication as described in FBAutopost::publish()
-   * 
+   *
+   * @return string
+   *   The publication ID.
    * @see FBAutopost::publish()
    * @throws FacebookApiException
    */
   protected function publishOn($publication) {
     $this->publishParameterPrepare($publication);
+
     // Call api method from ancestor.
-    return $this->api(
+    $result = $this->api(
       // Post to destination on the selected endpoint.
       '/' . $this->getDestination() . '/' . $this->getEndpoint(),
       // This is fixed.
@@ -233,8 +236,12 @@ class FBAutopost extends Facebook {
       // Add access token to the params.
       $publication['params']
     );
+
+    module_invoke_all('fb_autopost_publication_publish', $publication, $result);
+
+    return $result;
   }
-  
+
   /**
    * Prepares the parameters to publish to Facebook, this means settings any
    * field or destination dependent configuration.
@@ -371,14 +378,14 @@ class FBAutopost extends Facebook {
 
   /**
    * Sets the privacy.
-   * 
+   *
    * @param string $privacy_code
    *   Privacy string as defined in Facebook documentation. Allowed values are:
    *     - EVERYONE
    *     - ALL_FRIENDS
    *     - FRIENDS_OF_FRIENDS
    *     - SELF
-   * @return
+   * @return $this
    *   Returns itself.
    * @throws FBAutopostException
    * @see https://developers.facebook.com/docs/reference/api/privacy-parameter
@@ -393,7 +400,7 @@ class FBAutopost extends Facebook {
 
   /**
    * Gets the privacy value.
-   * 
+   *
    * @return string
    *   The privacy array formatted as array('value' => 'ALL_FRIENDS') …
    * @see https://developers.facebook.com/docs/reference/api/privacy-parameter/
@@ -402,13 +409,15 @@ class FBAutopost extends Facebook {
   public function getPrivacy() {
     return isset($this->privacy) ? array('value' => $this->privacy) : NULL;
   }
-  
+
   /**
    * Sets the type value.
-   * 
+   *
    * @param string $type
    *   The type as defined in FBAutopost::types.
-   * 
+   *
+   * @throws FBAutopostException
+   *
    * @return FBAutopost
    *   Returns itself
    */
@@ -419,10 +428,10 @@ class FBAutopost extends Facebook {
     $this->type = $type;
     return $this;
   }
-  
+
   /**
    * Gets the publication type.
-   * 
+   *
    * @return string
    *   The publication type.
    */
@@ -444,10 +453,10 @@ class FBAutopost extends Facebook {
       throw new FBAutopostException(t('Insufficient permissions to publish on page with id @id. Please check !config.', array('@id' => $page_id, '!config' => l(t('your configuration'), 'admin/config/services/fbautopost'))), FBAutopost::incorrect_param, WATCHDOG_ERROR);
     }
   }
-  
+
   /**
    * Checks if a user has an active access token.
-   * 
+   *
    * @return boolean
    *   TRUE if the user may publish to the timeline.
    */
@@ -465,10 +474,10 @@ class FBAutopost extends Facebook {
 
   /**
    * Sets the retry value.
-   * 
+   *
    * @param boolean $retry
    *   Boolean indicating if the publication in the timeline must be retried.
-   * 
+   *
    * @return FBAutopost
    *   Returns itself
    */
@@ -476,10 +485,10 @@ class FBAutopost extends Facebook {
     $this->retry = $retry;
     return $this;
   }
-  
+
   /**
    * Gets the publication type.
-   * 
+   *
    * @return boolean
    *   The retry settings.
    */

@@ -18,11 +18,11 @@ class FBAutopostEntity extends FBAutopost {
    *   Page id (among those already selected via UI).
    *   If this is present it will override the parameter destination.
    *   Use 'me' to publish to the user's timeline
-   * 
+   *
    * @return string
    *   Facebook id string for the publication. Needed to edit, or delete the
    *   publication.
-   * 
+   *
    * @throws FBAutopostException
    * @see FBAutopost::publish()
    */
@@ -31,6 +31,8 @@ class FBAutopostEntity extends FBAutopost {
     return parent::publish(array(
       'type' => $publication->type,
       'params' => fb_autopost_entity_get_properties($publication),
+      // We need to control serialization to handle class loading
+      'entity' => serialize($publication),
     ), $page_id);
   }
 
@@ -39,10 +41,10 @@ class FBAutopostEntity extends FBAutopost {
    *
    * @param FacebookPublicationEntity $publication
    *   The fully loaded Facebook publication entity.
-   * 
+   *
    * @return boolean
    *   TRUE if the publication was deleted successfully.
-   * 
+   *
    * @throws FBAutopostException
    * @see FBAutopost::remoteDelete()
    */
@@ -65,7 +67,7 @@ class FBAutopostEntity extends FBAutopost {
    *
    * @param FacebookPublicationEntity $publication
    *   The fully loaded Facebook publication entity
-   * 
+   *
    * @throws FBAutopostException
    * @see FBAutopost::remoteEdit()
    */

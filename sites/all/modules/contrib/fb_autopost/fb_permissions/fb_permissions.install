@@ -12,7 +12,7 @@ function fb_permissions_install() {
   // Set default values for the different roles.
   variable_set('fb_permissions_facebook_permissions:1', array('publish_stream'));
   variable_set('fb_permissions_facebook_permissions:2', array('publish_stream'));
-  variable_set('fb_permissions_facebook_permissions:3', array('manage_pages', 'publish_stream'));
+  variable_set('fb_permissions_facebook_permissions:3', array('manage_pages', 'publish_stream', 'publish_pages'));
 }
 
 /**

@@ -238,7 +238,7 @@ function rules_action_edit_in_facebook(FacebookPublicationEntity $publication, $
  * Callback for valid access token condition.
  */
 function fb_autopost_entity_rules_condition_valid_access_token($valid_access_token) {
-  return facebook_autopost()->hasValidAccessToken() == $valid_access_token;
+  return facebook_autopost()->hasActiveAccessToken() == $valid_access_token;
 }
 
 /**

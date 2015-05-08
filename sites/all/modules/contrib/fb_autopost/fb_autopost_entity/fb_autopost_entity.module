@@ -30,6 +30,21 @@ function facebook_publication_title($facebook_publication) {
 }
 
 /**
+ * Implements hook_fb_autopost_publication_publish().
+ */
+function fb_autopost_entity_fb_autopost_publication_publish($publication, $result) {
+  // If the publication being published came from an entity, invokes
+  // hook_fb_autopost_publication_entity_publish.
+
+  // Publications that started with entities have an extra 'entity' field.
+  if (!empty($publication['entity'])) {
+    $publication_entity = unserialize($publication['entity']);
+
+    module_invoke_all('fb_autopost_publication_entity_publish', $publication_entity, $result);
+  }
+}
+
+/**
  * Implements hook_entity_info().
  */
 function fb_autopost_entity_entity_info() {
@@ -121,7 +136,7 @@ function fb_autopost_entity_entity_info() {
  *
  * @param string $type
  *   The machine-readable name of a Facebook publication type to load.
- * 
+ *
  * @return array
  *   A Facebook publication type array or FALSE if $type does not exist.
  */
@@ -169,7 +184,7 @@ function fb_autopost_entity_permission() {
  *
  * @param string $type_name
  *   If set, the type with the given name is returned.
- * 
+ *
  * @return FacebookPublicationTypeEntity[]
  *   Depending whether $type isset, an array of Facebook publication types or a
  * single one.
@@ -186,7 +201,7 @@ function facebook_publication_get_types($type_name = NULL) {
  *   Integer specifying the Facebook publication id.
  * @param bool $reset
  *   A boolean indicating that the internal cache should be reset.
- * 
+ *
  * @return FacebookPublicationEntity
  *   A fully-loaded $publications object or FALSE if it cannot be loaded.
  *
@@ -206,7 +221,7 @@ function facebook_publication_load($fbpid, $reset = FALSE) {
  *   An array of conditions to match against the {facebook_publication} table.
  * @param bool $reset
  *   A boolean indicating that the internal cache should be reset.
- * 
+ *
  * @return array
  *   An array of Facebook publication objects, indexed by pid.
  *
@@ -306,7 +321,7 @@ function fb_autopost_entity_facebook_publication_type_delete($type) {
  * access for all publications is determined.
  * @param object $account
  *   The user to check for. Leave it to NULL to check for the global user.
- * 
+ *
  * @return bool
  *   Whether access is allowed or not.
  *
@@ -418,7 +433,7 @@ class FacebookPublicationEntity extends Entity {
    *
    * @var string
    */
-  public $facebookid;
+  public $facebook_id;
 
   /**
    * Entity constructor.
@@ -473,7 +488,7 @@ class FacebookPublicationEntity extends Entity {
    *   String representing the Facebook ID.
    */
   public function facebookid() {
-    return $this->facebookid;
+    return $this->facebook_id;
   }
 
   /**
@@ -530,10 +545,10 @@ class FacebookPublicationEntity extends Entity {
 
   /**
    * Get the property names out of the field names associated to this entity.
-   * 
+   *
    * @param array $field_names
    *   A numeric array containing the field names to translate.
-   * 
+   *
    * @return array
    *   A keyed array with field name => property name.
    */
@@ -584,10 +599,10 @@ class FacebookPublicationTypeEntity extends Entity {
 
 /**
  * Helper function to translate from field names to property names for the SDK.
- * 
+ *
  * @param FacebookPublicationEntity $publication
  *   Entity to extract the properties from.
- * 
+ *
  * @return array
  *   An array of property names with their corresponding values
  */
@@ -613,7 +628,7 @@ function fb_autopost_entity_get_properties(FacebookPublicationEntity $publicatio
 
 /**
  * Factory method.
- * 
+ *
  * @param string $type
  *   Facebook publication type.
  */

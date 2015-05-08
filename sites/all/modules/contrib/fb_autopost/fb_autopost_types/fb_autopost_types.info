@@ -123,9 +123,9 @@ features_exclude[field][facebook_publication-question-field_facebook_published] 
 features_exclude[field][facebook_publication-question-field_facebook_question] = facebook_publication-question-field_facebook_question
 features_exclude[field][facebook_publication-question-field_facebook_scheduled_publish] = facebook_publication-question-field_facebook_scheduled_publish
 
-; Information added by Drupal.org packaging script on 2014-05-15
-version = "7.x-1.2"
+; Information added by Drupal.org packaging script on 2015-04-30
+version = "7.x-1.3"
 core = "7.x"
 project = "fb_autopost"
-datestamp = "1400138934"
+datestamp = "1430376222"
 

@@ -148,7 +148,12 @@ function fb_autopost_authorization_retry() {
     if ($session->isStored()) {
       $data = $session->getStoredPublication();
       $fb = facebook_autopost($data['publication']['type']);
-      $fb->setDestination($data['target'])->publish($data['publication']);
+
+      // Prevent infinite loop of requesting permissions.
+      $fb->setRetry(FALSE);
+
+      $fb->setDestination($data['target']);
+      $fb->publish($data['publication']);
     }
   }
   catch (Exception $e) {
