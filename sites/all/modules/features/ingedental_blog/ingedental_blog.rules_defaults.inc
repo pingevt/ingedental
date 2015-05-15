@@ -9,6 +9,17 @@
  */
 function ingedental_blog_default_rules_configuration() {
   $items = array();
+  $items['rules_flush_caches_after_scheduler'] = entity_import('rules_config', '{ "rules_flush_caches_after_scheduler" : {
+      "LABEL" : "Flush Caches after scheduler",
+      "PLUGIN" : "reaction rule",
+      "OWNER" : "rules",
+      "REQUIRES" : [ "php", "rules", "scheduler" ],
+      "ON" : { "scheduler_node_has_been_published_event" : [] },
+      "DO" : [
+        { "php_eval" : { "code" : "\\/\\/ define static var\\r\\ndefine(\\u0027DRUPAL_ROOT\\u0027, getcwd());\\r\\n\\/\\/ include bootstrap\\r\\ninclude_once(\\u0027.\\/includes\\/bootstrap.inc\\u0027);\\r\\n\\/\\/ initialize stuff\\r\\ndrupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);\\r\\n\\/\\/ clear cache\\r\\ndrupal_flush_all_caches();" } }
+      ]
+    }
+  }');
   $items['rules_post_link_to_facebook'] = entity_import('rules_config', '{ "rules_post_link_to_facebook" : {
       "LABEL" : "Post Link to facebook",
       "PLUGIN" : "reaction rule",

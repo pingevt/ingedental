@@ -57,6 +57,13 @@ function ingedental_blog_ckeditor_profile_defaults() {
         'theme_config_js' => 'f',
         'js_conf' => '',
         'loadPlugins' => array(
+          'autogrow' => array(
+            'name' => 'autogrow',
+            'desc' => 'Auto Grow plugin. See <a href="http://ckeditor.com/addon/autogrow">addon page</a> for more details.',
+            'path' => '//cdn.ckeditor.com/4.4.3/full-all/plugins/autogrow/',
+            'buttons' => FALSE,
+            'default' => 'f',
+          ),
           'drupalbreaks' => array(
             'name' => 'drupalbreaks',
             'desc' => 'Plugin for inserting Drupal teaser and page breaks.',
