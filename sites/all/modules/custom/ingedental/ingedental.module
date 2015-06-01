@@ -26,9 +26,11 @@ function ingedental_entity_presave($entity, $type) {
       $file = file_load($entity->field_link_image[LANGUAGE_NONE][0]['fid']);
       $image_uri = $file->uri;
 
+      $style = image_style_load('fb_link_image');
+
       $derivative_uri = image_style_path('fb_link_image', $image_uri);
       if (!file_exists($derivative_uri)) {
-        image_style_create_derivative('fb_link_image', $image_uri, $derivative_uri);
+        image_style_create_derivative($style, $image_uri, $derivative_uri);
       }
     }
 
@@ -36,9 +38,11 @@ function ingedental_entity_presave($entity, $type) {
       $file = file_load($entity->field_fb_image[LANGUAGE_NONE][0]['fid']);
       $image_uri = $file->uri;
 
+      $style = image_style_load('fb_general');
+
       $derivative_uri = image_style_path('fb_general', $image_uri);
       if (!file_exists($derivative_uri)) {
-        image_style_create_derivative('fb_general', $image_uri, $derivative_uri);
+        image_style_create_derivative($style, $image_uri, $derivative_uri);
       }
     }
   }
