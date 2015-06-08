@@ -158,7 +158,7 @@ h6 {
   background: url('../../images/navBottom.jpg') no-repeat bottom left;
 }
 #navCol .block {
-  background-color: rgba(256, 256, 256, 0.3);
+  background-color: rgba(255, 255, 255, 0.3);
   -moz-border-radius: 10px;
   border-radius: 10px;
   padding: 4px;
@@ -480,7 +480,7 @@ a.pdf {
   -moz-border-radius-bottomleft: 18px;
   border-bottom-right-radius: 18px;
   border-bottom-left-radius: 18px;
-  background: rgba(256, 256, 256, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   border-top: 3px solid #5f3b42;
   box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
   -moz-box-shadow: 2px 2px 2px 0px rgba(0, 0, 0, 0.3);
@@ -568,14 +568,14 @@ a.pdf {
   float: left;
   margin-top: 1.5em;
   padding: 15px;
-  background: rgba(256, 256, 256, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   border-top: 1px solid #5f3b42;
 }
 #mainContentCol div.node-blog-entry .comments {
   clear: both;
   margin: 1.5em 3.5em;
   padding: 1.5em;
-  background: rgba(256, 256, 256, 0.5);
+  background: rgba(255, 255, 255, 0.5);
 }
 #mainContentCol div.node-blog-entry .comments .comment {
   border-top: 1px solid #5f3b42;
@@ -623,7 +623,7 @@ a.pdf {
   float: none;
   margin-top: inherit;
   padding: inherit;
-  background: rgba(256, 256, 256, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   border-top: 1px solid #5f3b42;
 }
 #navCol #block-block-6 {
@@ -680,4 +680,8 @@ a.pdf {
 }
 .h-o-o dd {
   text-align: right;
+}
+#footer .copywrite {
+  margin-bottom: 0;
+  padding-bottom: 1em;
 }
