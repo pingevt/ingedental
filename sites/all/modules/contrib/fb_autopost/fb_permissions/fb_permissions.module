@@ -80,7 +80,7 @@ function fb_permissions_facebook_permissions_settings($form, &$form_state) {
 
   $config = fb_permissions_default_permissions($version);
   if (!empty($form_state['values']['role'])) {
-    $values = variable_get('fb_permissions_facebook_permissions:' . $form_state['values']['role'], array('publish_stream', 'public_profile', 'publish_actions'));
+    $values = variable_get('fb_permissions_facebook_permissions:' . $form_state['values']['role'], array('public_profile', 'publish_actions'));
     $values = array_map('replace_dot_vertical_bar', $values);
     foreach ($config as $perm_group => $group_item) {
       $permissions = $group_item['permissions'];
@@ -94,11 +94,6 @@ function fb_permissions_facebook_permissions_settings($form, &$form_state) {
       }
     }
     // Make sure the mandatory actions are checked.
-    if (!empty($form['facebook_permissions']['extended_permissions']['publish_stream'])) {
-      $form['facebook_permissions']['extended_permissions']['publish_stream']['#value'] = TRUE;
-      $form['facebook_permissions']['extended_permissions']['publish_stream']['#default_value'] = TRUE;
-      $form['facebook_permissions']['extended_permissions']['publish_stream']['#disabled'] = TRUE;
-    }
     if (!empty($form['facebook_permissions']['public_profile']['public_profile'])) {
       $form['facebook_permissions']['public_profile']['public_profile']['#value'] = TRUE;
       $form['facebook_permissions']['public_profile']['public_profile']['#default_value'] = TRUE;
@@ -262,10 +257,6 @@ function fb_permissions_default_permissions($version = 'v1') {
           'publish_actions' => array(
             '#title' => t("Publish Actions."),
             '#description' => t("Enables your app to post content, comments, and likes to a user's stream and to the streams of the user's friends. This requires extra permissions from a person using your app. However, please note that Facebook recommends a user-initiated sharing model. Please read the Platform Policies to ensure you understand how to properly use this permission. Note, you do not need to request the publish_actions permission in order to use the Feed Dialog, the Requests Dialog or the Send Dialog. Facebook used to have a permission called publish_stream, publish_actions replaces it in most cases."),
-          ),
-          'publish_stream' => array(
-            '#title' => t("Publish Stream."),
-            '#description' => t("The publish_stream permission is required to post to a Facebook Page's timeline. For a Facebook User use publish_actions."),
           ),
           'rsvp_event' => array(
             '#title' => t("RSVP Event."),

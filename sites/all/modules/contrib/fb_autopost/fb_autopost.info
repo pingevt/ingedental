@@ -16,9 +16,9 @@ files[] = class/FBAutopostEvent.php
 files[] = class/FBAutopostPost.php
 files[] = class/FBSession.php
 
-; Information added by Drupal.org packaging script on 2015-04-30
-version = "7.x-1.3"
+; Information added by Drupal.org packaging script on 2015-05-15
+version = "7.x-1.4"
 core = "7.x"
 project = "fb_autopost"
-datestamp = "1430376222"
+datestamp = "1431732532"
 

@@ -10,9 +10,9 @@
  */
 function fb_permissions_install() {
   // Set default values for the different roles.
-  variable_set('fb_permissions_facebook_permissions:1', array('publish_stream'));
-  variable_set('fb_permissions_facebook_permissions:2', array('publish_stream'));
-  variable_set('fb_permissions_facebook_permissions:3', array('manage_pages', 'publish_stream', 'publish_pages'));
+  variable_set('fb_permissions_facebook_permissions:1', array('publish_actions'));
+  variable_set('fb_permissions_facebook_permissions:2', array('publish_actions'));
+  variable_set('fb_permissions_facebook_permissions:3', array('manage_pages', 'publish_actions', 'publish_pages'));
 }
 
 /**
@@ -34,4 +34,19 @@ function fb_permissions_update_7100(&$sandbox) {
     variable_set('fb_permissions_facebook_permissions:' . $role_id, $permissions);
   }
   variable_del('fb_permissions_facebook_permissions');
+}
+
+/**
+ * Set per-role permissions.
+ */
+function fb_permissions_update_7101(&$sandbox) {
+  // We can only assume that those permissions are for all roles.
+  foreach (user_roles() as $role_id => $role) {
+    $permissions = variable_get('fb_permissions_facebook_permissions:' . $role_id, array('publish_actions'));
+    $key = array_search('publish_stream', $permissions);
+    if ($key !== FALSE) {
+      unset($permissions[$key]);
+      variable_set('fb_permissions_facebook_permissions:' . $role_id, $permissions);
+    }
+  }
 }

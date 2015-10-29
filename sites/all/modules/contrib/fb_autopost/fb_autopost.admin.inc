@@ -86,7 +86,7 @@ function fb_autopost_global_settings($form, &$form_state) {
           '#type' => 'link',
           '#title' => t('Login to Facebook'),
           '#href' => $fb->getLoginUrl(array(
-            'scope' => fb_permissions_get_facebook_permissions(array('manage_pages')),
+            'scope' => fb_permissions_get_facebook_permissions(array('manage_pages', 'publish_actions')),
             'redirect_uri' => url('admin/config/services/fbautopost/login', array('absolute' => TRUE)),
           )),
         );
